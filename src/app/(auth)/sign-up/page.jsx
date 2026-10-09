@@ -1,12 +1,12 @@
 
 "use client";
 
-import { signIn } from "../../../lib/auth-client";
+import { signIn, signUp } from "../../../lib/auth-client";
 import Link from "next/link";
-import { Form, Input, Label, TextField, Button } from "@heroui/react";
+import { Form, Input, Label, TextField, Button, FieldError } from "@heroui/react";
 import { useState } from "react";
 
-const SignIn = () => {
+const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -19,10 +19,11 @@ const SignIn = () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const { error } = await signIn.email({
+      const { error } = await signUp.email({
+        name:data.name,
         email: data.email,
         password: data.password,
-        callbackURL: "/",
+        callbackURL: "/sign-in",
       });
 
       if (error) {
@@ -84,6 +85,22 @@ const SignIn = () => {
 
         {/* Sign In Form */}
         <Form onSubmit={onSubmit} className="flex flex-col gap-4">
+       
+                 <TextField
+            isRequired
+            name="name"
+            validate={(value) => {
+              if (value.length < 3) {
+                return "Name must be at least 3 characters";
+              }
+              return null;
+            }}
+          >
+            <Label>Name</Label>
+            <Input placeholder="John Doe" />
+            <FieldError />
+          </TextField>
+
           <TextField name="email" type="email" isRequired className="w-full">
             <Label className="mb-1.5 block text-[13px] font-medium text-[#172554]">
               Email address
@@ -142,5 +159,5 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
 
