@@ -8,12 +8,15 @@ const Navbar = () => {
 const [categories,setCategories] = useState([])
       const {data:session,isPending} = useSession()
 
+// if(isPending){
+//   return <span className="loading loading-spinner text-success"></span>
 
+// }
 const authLinks=<>
  {
     session?.user?<>
-    <span>Welcome {session?.user.name}</span>
-   <Link href="/sign-in"> <button onClick={() =>signOut()}>Sign Out</button></Link>
+    <span  className="flex font-bold items-center gap-2 whitespace-nowrap text-sm text-slate-600 transition-colors hover:text-blue-600">Welcome {session?.user.name}</span>
+   <Link href="/sign-in"> <button className="btn btn-success" onClick={() =>signOut()}>Sign Out</button></Link>
     </>:<> <Link href="/sign-in">Login</Link>
           <Link href="/sign-up"><Button>Sign Up</Button></Link></>
  }
@@ -30,6 +33,9 @@ useEffect(()=>{
 console.log(categories)
 
 const links=<>
+<Link href="/">
+<li className="flex text-xl items-center gap-2 whitespace-nowrap text-sm text-slate-600 transition-colors hover:text-blue-600">Home</li>
+</Link>
 {
     categories.map(ct=> <li key={ct?._id}>
       <Link
@@ -43,6 +49,10 @@ const links=<>
 }
          
 </>
+if(isPending){
+  return <span className="loading loading-spinner  text-center text-success"></span>
+
+}
     return (
         <div>
              <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
@@ -80,7 +90,7 @@ const links=<>
           </button>
           <div className="flex items-center gap-3">
            
-            <p className="font-bold">ACME</p>
+           <Link href="/"> <p className="font-bold">TechPulse</p></Link>
           </div>
         </div>
         <ul className="hidden items-center gap-4 md:flex">

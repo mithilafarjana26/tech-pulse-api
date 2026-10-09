@@ -1,7 +1,7 @@
 
 "use client";
 
-import { signIn } from "@/lib/auth-client";
+import { signIn } from "../../../lib/auth-client";
 import { useState } from "react";
 import Link from "next/link";
 import {

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { signIn } from "@/lib/auth-client";
+import { signIn } from "../../../lib/auth-client";
 import Link from "next/link";
 import { Form, Input, Label, TextField, Button } from "@heroui/react";
 import { useState } from "react";
