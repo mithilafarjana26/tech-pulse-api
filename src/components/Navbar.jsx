@@ -1,10 +1,11 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Button } from "@heroui/react";
 import { signOut, useSession } from "@/lib/auth-client";
+import baseUrl from "@/servicesApi/baseUrl";
 const Navbar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+const [categories,setCategories] = useState([])
       const {data:session,isPending} = useSession()
 
 
@@ -16,6 +17,31 @@ const authLinks=<>
     </>:<> <Link href="/sign-in">Login</Link>
           <Link href="/sign-up"><Button>Sign Up</Button></Link></>
  }
+</>
+
+useEffect(()=>{
+    fetch(`${baseUrl}/api/categories`)
+    .then(res=>res.json())
+    .then(data=>setCategories(data))
+    .catch(error=>{
+        alert(error.message)
+    })
+},[])
+// console.log(categories)
+
+const links=<>
+{
+    categories.map(ct=> <li key={ct?._id}>
+      <Link
+        href={`/category/${ct?.slug}`}
+        className="flex items-center gap-2 whitespace-nowrap text-sm text-slate-600 transition-colors hover:text-blue-600"
+      >
+        <span className="text-base text-xl">{ct?.icon}</span>
+        <span className="text-xl">{ct?.name}</span>
+      </Link>
+    </li>)
+}
+         
 </>
     return (
         <div>
@@ -58,17 +84,7 @@ const authLinks=<>
           </div>
         </div>
         <ul className="hidden items-center gap-4 md:flex">
-          <li>
-            <Link href="#">Features</Link>
-          </li>
-          <li>
-            <Link href="#" className="font-medium text-accent" aria-current="page">
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link href="#">Pricing</Link>
-          </li>
+         {links}
         </ul>
         <div className="hidden items-center gap-4 md:flex">
         {authLinks}
@@ -77,26 +93,9 @@ const authLinks=<>
       {isMenuOpen && (
         <div className="border-t border-separator md:hidden">
           <ul className="flex flex-col gap-2 p-4">
-            <li>
-              <Link href="#" className="block py-2">
-                Features
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="block py-2 font-medium text-accent">
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="block py-2">
-                Pricing
-              </Link>
-            </li>
+           {links}
             <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-              <Link href="#" className="block py-2">
-                Login
-              </Link>
-              <Button className="w-full">Sign Up</Button>
+              {authLinks}
             </li>
           </ul>
         </div>
