@@ -1,6 +1,5 @@
-import AllProducts from "@/components/AllProducts";
-import PriceDrops from "@/components/PriceDrops";
-import Image from "next/image";
+import AllProducts from "../components/AllProducts";
+import PriceDrops from "../components/PriceDrops.jsx";
 
 export default function Home() {
   return (

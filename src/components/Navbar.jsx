@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from "react";
 import { Link, Button } from "@heroui/react";
-import { signOut, useSession } from "@/lib/auth-client";
-import baseUrl from "@/servicesApi/baseUrl";
+import { signOut, useSession } from "../lib/auth-client";
+import baseUrl from "../servicesApi/baseUrl";
 const Navbar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
 const [categories,setCategories] = useState([])
@@ -27,13 +27,13 @@ useEffect(()=>{
         alert(error.message)
     })
 },[])
-// console.log(categories)
+console.log(categories)
 
 const links=<>
 {
     categories.map(ct=> <li key={ct?._id}>
       <Link
-        href={`/category/${ct?.slug}`}
+        href={`/categories/${ct?.slug}`}
         className="flex items-center gap-2 whitespace-nowrap text-sm text-slate-600 transition-colors hover:text-blue-600"
       >
         <span className="text-base text-xl">{ct?.icon}</span>

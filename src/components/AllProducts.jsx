@@ -1,5 +1,4 @@
 
-import Image from "next/image";
 import Link from "next/link";
 
 const AllProducts = async () => {
@@ -10,6 +9,7 @@ const AllProducts = async () => {
   }
 
   const products = await res.json();
+  console.log(products)
 
   return (
     <section className="min-h-screen bg-[#f6f8fc] px-4 py-6 sm:px-6">
@@ -100,7 +100,7 @@ const AllProducts = async () => {
                   </span>
 {/* {`/products/${product.slug}`} */}
                   <Link
-                    href='/'
+                    href={`/products/${product.slug}`}
                     className="whitespace-nowrap text-xs font-medium text-[#4935ff] hover:underline"
                   >
                     View Details →
