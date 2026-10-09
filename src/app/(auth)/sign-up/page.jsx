@@ -39,7 +39,7 @@ const SignIn = () => {
     try {
       await signIn.social({
         provider: "google",
-        callbackURL: "/",
+        callbackURL: "/sign-in",
       });
     } catch {
       setErrorMessage("Google sign in failed. Please try again.");
@@ -123,7 +123,7 @@ const SignIn = () => {
             isDisabled={loading}
             className="mt-1 flex h-[46px] w-full items-center justify-center rounded-xl bg-[#5038ff] text-sm font-semibold text-white transition hover:bg-[#4225ed] disabled:opacity-60"
           >
-            {loading ? "Signing in..." : "Sign In →"}
+            {loading ? "Signing up..." : "Sign up →"}
           </Button>
         </Form>
 
